@@ -53,3 +53,6 @@ if __name__ == "__main__":
     print("\nBell State Measurement Results:", counts)
     plot_histogram(counts)
     plt.show()
+    
+    qc.draw(output='mpl')
+    plt.show()
