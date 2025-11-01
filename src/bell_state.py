@@ -32,6 +32,11 @@ def show_statevector(qc):
     print("\nStatevector:\n", sv)
     return sv
 
+def is_entangled(statevector):
+    return not statevector.is_product_state()
+
+print("\nEntangled:", is_entangled(statevector))
+
 
 if __name__ == "__main__":
     qc = create_bell_circuit()
