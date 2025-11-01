@@ -16,6 +16,7 @@ from qiskit_aer import AerSimulator
 from qiskit.visualization import plot_histogram, plot_bloch_multivector
 from qiskit.quantum_info import Statevector, state_fidelity
 import matplotlib.pyplot as plt
+from qiskit.quantum_info import state_fidelity
 
 from qiskit.visualization import plot_bloch_multivector
 
@@ -39,12 +40,17 @@ def simulate_counts(qc, shots=1024):
     counts = result.get_counts()
     return counts
 
-
 def show_statevector(qc):
     sv = Statevector.from_instruction(qc.remove_final_measurements(inplace=False))
     print("\n🔹 Statevector:\n", sv)
     return sv
 
+def create_bell_circuit():
+    qc = QuantumCircuit(2, 2)
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure([0, 1], [0, 1])
+    return qc
 def is_entangled(statevector):
     return not statevector.is_product_state()
 
@@ -66,6 +72,7 @@ def is_entangled(statevector):
 def check_fidelity(statevector):
     bell_state = Statevector([1/2**0.5, 0, 0, 1/2**0.5])
     fidelity = state_fidelity(statevector, bell_state)
+    print(f"\nFidelity with ideal Bell state: {fidelity:.4f}")
     print(f"\n🔹 Fidelity with ideal Bell state: {fidelity:.4f}")
     return fidelity
 
