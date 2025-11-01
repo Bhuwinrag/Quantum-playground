@@ -17,6 +17,11 @@ from qiskit.visualization import plot_histogram, plot_bloch_multivector
 from qiskit.quantum_info import Statevector, state_fidelity
 import matplotlib.pyplot as plt
 
+from qiskit.visualization import plot_bloch_multivector
+
+def show_bloch_sphere(statevector):
+    plot_bloch_multivector(statevector)
+    plt.show()
 
 def create_bell_circuit():
     qc = QuantumCircuit(2, 2)
@@ -39,6 +44,11 @@ def show_statevector(qc):
     sv = Statevector.from_instruction(qc.remove_final_measurements(inplace=False))
     print("\n🔹 Statevector:\n", sv)
     return sv
+
+def is_entangled(statevector):
+    return not statevector.is_product_state()
+
+print("\nEntangled:", is_entangled(statevector))
 
 
 def show_bloch_sphere(statevector):
@@ -70,6 +80,9 @@ if __name__ == "__main__":
     qc = create_bell_circuit()
     counts = simulate_counts(qc)
     statevector = show_statevector(qc)
+    show_statevector(qc)
+    statevector = show_statevector(qc)
+    show_bloch_sphere(statevector)
 
     print("\n🔹 Bell State Measurement Results:", counts)
     plot_histogram(counts)
@@ -79,3 +92,6 @@ if __name__ == "__main__":
     is_entangled(statevector)
     check_fidelity(statevector)
     show_circuit_diagram(qc)
+    
+    qc.draw(output='mpl')
+    plt.show()
