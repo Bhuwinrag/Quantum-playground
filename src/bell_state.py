@@ -42,6 +42,8 @@ if __name__ == "__main__":
     qc = create_bell_circuit()
     counts = simulate_counts(qc)
     show_statevector(qc)
+    statevector = show_statevector(qc)
+    show_bloch_sphere(statevector)
 
     print("\nBell State Measurement Results:", counts)
     plot_histogram(counts)
