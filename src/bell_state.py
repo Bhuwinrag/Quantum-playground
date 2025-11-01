@@ -8,15 +8,7 @@ from qiskit_aer import AerSimulator
 from qiskit.visualization import plot_histogram
 from qiskit.quantum_info import Statevector
 import matplotlib.pyplot as plt
-
-
-def create_bell_circuit():
-    qc = QuantumCircuit(2, 2)
-    qc.h(0)
-    qc.cx(0, 1)
-    qc.measure([0, 1], [0, 1])
-    return qc
-
+from qiskit.quantum_info import state_fidelity
 
 def simulate_counts(qc, shots=1024):
     simulator = AerSimulator()
@@ -26,12 +18,22 @@ def simulate_counts(qc, shots=1024):
     counts = result.get_counts()
     return counts
 
-
 def show_statevector(qc):
     sv = Statevector.from_instruction(qc.remove_final_measurements(inplace=False))
     print("\nStatevector:\n", sv)
     return sv
 
+def create_bell_circuit():
+    qc = QuantumCircuit(2, 2)
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure([0, 1], [0, 1])
+    return qc
+
+def check_fidelity(statevector):
+    bell_state = Statevector([1/2**0.5, 0, 0, 1/2**0.5])
+    fidelity = state_fidelity(statevector, bell_state)
+    print(f"\nFidelity with ideal Bell state: {fidelity:.4f}")
 
 if __name__ == "__main__":
     qc = create_bell_circuit()
