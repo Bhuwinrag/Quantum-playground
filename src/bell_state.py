@@ -9,6 +9,11 @@ from qiskit.visualization import plot_histogram
 from qiskit.quantum_info import Statevector
 import matplotlib.pyplot as plt
 
+from qiskit.visualization import plot_bloch_multivector
+
+def show_bloch_sphere(statevector):
+    plot_bloch_multivector(statevector)
+    plt.show()
 
 def create_bell_circuit():
     qc = QuantumCircuit(2, 2)
